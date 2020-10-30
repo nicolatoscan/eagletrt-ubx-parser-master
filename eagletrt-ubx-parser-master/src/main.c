@@ -43,7 +43,6 @@ int main(){
     		}
     		if(a==12){
     			x=strcmp(p,riga);
-    			printf("%d\n",x);
     		}
     		
     		riga = strtok (NULL, " \"");
