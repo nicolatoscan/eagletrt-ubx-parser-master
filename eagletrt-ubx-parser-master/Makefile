@@ -1,0 +1,14 @@
+.PHONY: help
+.PHONY: build
+.PHONY: clean
+
+run:
+	@gcc -std=gnu90 src/main.c -o bin/main; ./bin/main;
+
+help:
+	@cat README.md
+	
+build:
+	@gcc -std=gnu90 src/main.c -o bin/main;
+	
+
