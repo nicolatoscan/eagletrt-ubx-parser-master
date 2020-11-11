@@ -20,7 +20,6 @@ To use this parser:
 * Clone this repo
 * Install gcc
 * Navigate to the root folder of this project
-* Execute `./init.sh`
 * Move the ubx file which are to be exported in the `/inputs folder`
 * Open the `config.json` file, it will contain two properties:
   * `TYPE` is the output format. It can be `CSV` or `JSON`
