@@ -22,6 +22,7 @@ typedef struct{
 	parse_t type;
 	char path[100][1024];
 	int inputs_count;
+	int limit_warning;
 }config_t;
 
 //restituisce i parametri del file config.json

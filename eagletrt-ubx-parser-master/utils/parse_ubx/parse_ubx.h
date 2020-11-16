@@ -28,7 +28,8 @@ typedef enum {
 	GSA,
 	GSV,
 	VTG,
-	UNKNOWN
+	UNKNOWN,
+	ERR
 }message_name_t;
 
 //restituisce il nome del file ubx da analizzare
@@ -45,7 +46,7 @@ message_t extract_message_GLL(const char *line);
 message_t extract_message_RMC(const char *line);
 
 //filtra i messaggi nei formati voluti dividendoli in variabili
-void parse_ubx(char* ubx_path, message_t* messages);
+void parse_ubx(char* ubx_path, message_t* messages,int limit_warning);
 
 
 

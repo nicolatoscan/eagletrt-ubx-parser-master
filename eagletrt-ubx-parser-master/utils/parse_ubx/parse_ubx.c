@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "parse_ubx.h"
+#include "../log_utils/log_utils.h"
 
 //restituisce il nome del file ubx da analizzare
 char *matchubx(const char *path){			
@@ -27,11 +28,17 @@ double parseVal(double value){
 }
 
 //restituisce la tipologia di messaggio
-message_name_t get_line_message(char *buf){			//identifica le righe GGA
+message_name_t get_line_message(char *buf){			//identifica le righe GGA GLL RMC
 	int i=0;
 	char line[10];
+	
+	if (buf[i]!='$'){
+		return ERR;
+	}
 	while(buf[i]!=','){
-		
+		if ((i>0)&&((buf[i]>90)||(buf[i]<65))){
+			return ERR;
+		}
 		line[i]=buf[i];
 		i++;
 	}
@@ -170,28 +177,51 @@ message_t extract_message_RMC(const char *line){
 	return m;
 
 }
+message_t set_void_message(){
+	char *nan="NaN";
+	message_t m;
+		
+	strcpy(m.utc_time,nan);
+	m.latitude=0;
+	m.longitude=0;
+	strcpy(m.speed_knots,nan);
+	strcpy(m.course,nan);
+	strcpy(m.altitude,nan);
+	return m;
+
+}
 
 //filtra i messaggi nei formati voluti dividendoli in variabili
-void parse_ubx(char* path, message_t* messages){
+void parse_ubx(char* path, message_t* messages, int limit_warning){
 	FILE *file_ubx;
-	char buf[200],ubx_path[1024];
+	char buf[300],ubx_path[1024];
   	char *res;
-  	int n_line=0;
+  	int n_line=1;
   	int n_parse_line=0;
+  	int n_warning=0;
   	message_name_t name;
   	
   	strcpy(ubx_path,matchubx(path));
 	if((file_ubx=fopen(ubx_path, "rt"))==NULL) {
-		printf("Errore nell'apertura del file'%s\n",ubx_path);
+		logError("Errore nell'aperturna del file ubx di input");
 		exit(1);
 	}
 	
 	while(!feof(file_ubx)){
-		res=fgets(buf, 200, file_ubx);
+		int n=0;
+		res=fgets(buf, 300, file_ubx);
     		if( res==NULL ){
       			break;
       		}
       		name=get_line_message(buf);
+      		if (name==ERR){
+      			n_warning++;
+      			if (n_warning<limit_warning){
+      				logWarning("Errore nel file ubx");
+      				printf("Line %d: %s\n", n_line, buf);
+      			}
+      			messages[n_parse_line]=set_void_message();
+      		}
       		if (name==GGA){
       			messages[n_parse_line]=extract_message_GGA(buf);
       			n_parse_line++;
@@ -206,6 +236,8 @@ void parse_ubx(char* path, message_t* messages){
       		}
     		n_line++;      		
  	}
-	
+	if (n_warning>limit_warning){
+      				printf("e altri %d errori in questo file\n",(n_warning-limit_warning));
+      			}
 	fclose(file_ubx);
 }

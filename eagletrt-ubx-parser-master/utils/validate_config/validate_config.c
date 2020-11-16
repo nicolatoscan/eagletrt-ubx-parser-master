@@ -6,6 +6,7 @@
 #include <wjelement.h>
 #include <wjreader.h>
 #include "validate_config.h"
+#include "../log_utils/log_utils.h"
 
 static WJElement schema_load(const char *name, void *client,
 							 const char *file, const int line) {
@@ -67,37 +68,45 @@ int validateConfig(){
 	char *format;
 
 	if(!(jsonfile = fopen("config.json", "r"))) {
-		fprintf(stderr, "json file not found");
+		logError("json file not found");
 		return 1;
 	}
 	if(!(schemafile = fopen("config.schema", "r"))) {
-		fprintf(stderr, "schema file not found");
+		logError("schema file not found");
 		return 2;
 	}
 
 	if(!(readjson = WJROpenFILEDocument(jsonfile, NULL, 0)) ||
 	   !(json = WJEOpenDocument(readjson, NULL, NULL, NULL))) {
-		fprintf(stderr, "json could not be read.\n");
+		logError("json could not be read.\n");
 		return 3;
 	}
 	if(!(readschema = WJROpenFILEDocument(schemafile, NULL, 0)) ||
 	   !(schema = WJEOpenDocument(readschema, NULL, NULL, NULL))) {
-		fprintf(stderr, "schema could not be read.\n");
+		logError("schema could not be read.\n");
 		WJECloseDocument(json);
 		return 4;
 	}
 
 	//WJEDump(json);
-	printf("json: %s\n", readjson->depth? "bad" : "good");
+	if(readjson->depth==0){
+		logSuccess("json: PASS");
+	} else{
+		logError("json: FAIL");
+	}
 	
 	//WJEDump(schema);
-	printf("schema: %s\n", readschema->depth ? "bad" : "good");
-
+	if(readschema->depth==0){
+		logSuccess("schema: PASS");
+	} else {
+		logError("schema: FAIL");
+	}
+	
 	if((WJESchemaValidate(schema, json, schema_error, schema_load, schema_free,
 						 format))&&(readjson->depth==0)&&(readschema->depth==0)) {
-		printf("validation: PASS\n");
+		logSuccess("validation: PASS");
 	} else {
-		printf("validation: FAIL\n");
+		logError("validation: FAIL");
 		return 1;
 	}
 	WJECloseDocument(json);

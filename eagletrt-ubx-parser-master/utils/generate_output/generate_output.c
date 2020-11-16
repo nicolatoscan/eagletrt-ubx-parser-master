@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "generate_output.h"
+#include "../log_utils/log_utils.h"
 
 //ricostruisce nome file di output
 char *matchtype(const char *path, parse_t type){		
@@ -42,7 +43,7 @@ void generate_output_json(const char *output_path, const message_t* messages){
 	int index=0;
 	
 	if((json_file=fopen(output_path, "w"))==NULL) {
-		printf("Errore nell'apertura del file'%s\n",output_path);
+		logError("Errore nell'apertura del file json di output");
 		exit(1);
 	}
 	fprintf(json_file, "[\n");
@@ -66,7 +67,7 @@ void generate_output_csv(const char* output_path, const message_t* messages){
 	FILE *csv_file;
 	int index=0;
 	if((csv_file=fopen(output_path, "w"))==NULL) {
-		printf("Errore nell'apertura del file'%s\n",output_path);
+		logError("Errore nell'apertura del file csv di output");
 		exit(1);
 		fprintf(csv_file, "utc_time	latitude	longitude	altitude	speed_knots	course\n");		
 	}
