@@ -1,7 +1,10 @@
 {
-    "TYPE": "JSON",
+    "TYPE": "CSV",
     "INPUTS": [
         "esempio_tracciato_esterno",
-        "esempio_tracciato_interno"
-    ]
+        "esempio_tracciato_interno",
+        "new"
+    ],
+    "limit_warning": 10
+    
 }
