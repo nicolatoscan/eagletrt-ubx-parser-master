@@ -1,0 +1,30 @@
+{
+  "$schema": "Config.json",
+  "$id": "config.json",
+  "title": "Parser",
+  "description": "A parser for ubx files",
+  "type": "object",
+  "properties": {
+    "TYPE": {
+      "description": "Type of output file",
+      "type": "string",
+      "enum": ["JSON", "CSV"]
+    },
+    "INPUTS": {
+      "description": "Name of input file",
+      "type": "array",
+      "items": {
+        "type": "string",
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "limit_warning": {
+      "description": "Number of warning that is possible to pass",
+      "type": "integer",
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "TYPE", "INPUTS" ]
+}
+
