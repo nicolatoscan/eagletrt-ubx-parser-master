@@ -9,20 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: install json library
-      run: sudo apt install libjson-c-dev
-    - name: try to install
-      uses: actions/checkout@master
-      with:
-        repository: netmail-open/wjelement  
+    - name: install
+      run: sudo apt install libjson-c-dev cmake
     - name: install wjelement
-      run: ls 
-    - name: prova
-      run: sudo apt install cmake
-    - name: prova1
-      run: sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
-    - name: look
-      run: cd .. && ls && pwd && eagletrt-ubx-parser-master
+      run:  git clone https://github.com/netmail-open/wjelement && cd wjelement && sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
       
