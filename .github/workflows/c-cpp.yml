@@ -22,7 +22,7 @@ jobs:
     - name: prova1
       run: sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
     - name: ritorno
-      run: cd .. && ls
+      run: cd .. && ls && cd eagle-ubx-parser-master && ls && chmod +x compile.sh && ./compile.sh
     - name: look
       run: ls
     - name: esegui
