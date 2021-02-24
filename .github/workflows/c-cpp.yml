@@ -8,7 +8,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: prova
-      run: ls
+    - name: set permissions
+      run: chmod +x compile.sh
     - name: esegui
-      run: cd bin
+      run: ./compile.sh
