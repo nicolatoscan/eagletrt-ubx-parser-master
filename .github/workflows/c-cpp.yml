@@ -15,7 +15,8 @@ jobs:
       uses: actions/checkout@master
       with:
         repository: netmail-open/wjelement
+        run: cd wjelement-master && sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
     - name: install wjelement
-      run: gh repo clone netmail-open/wjelement && gh auth login && cd wjelement-master && sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
+      run: cd wjelement-master && sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
