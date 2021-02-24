@@ -21,5 +21,9 @@ jobs:
       run: sudo apt install cmake
     - name: prova1
       run: sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
+    - name: ritorno
+      run: cd .. && ls
+    - name: look
+      run: ls
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
