@@ -14,6 +14,6 @@ jobs:
     - name: install wjelement
       run:  git clone https://github.com/netmail-open/wjelement && cd wjelement && sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
     - name: create documentation
-      run: gunzip doxygen-$VERSION.src.tar.gz && tar xf doxygen-$VERSION.src.tar cd doxygen-$VERSION && mkdir build && cd build && cmake -G "Unix Makefiles" ..
+      run: git clone https://github.com/doxygen/doxygen.git && cd doxygen mkdir build && cd build && sudo cmake -G "Unix Makefiles" .. && sudo make && sudo make install
       
 
