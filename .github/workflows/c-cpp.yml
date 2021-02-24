@@ -10,4 +10,4 @@ jobs:
     - name: prova
       run: ls
     - name: esegui
-      run: ./compile.sh
+      run: cd bin
