@@ -16,8 +16,6 @@ jobs:
       with:
         repository: netmail-open/wjelement  
     - name: install wjelement
-      run: ls && cd wjelement-master 
-    - name: prova
-      run: sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
+      run: ls && sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
