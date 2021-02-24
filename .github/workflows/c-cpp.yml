@@ -12,6 +12,6 @@ jobs:
     - name: install json library
       run: sudo apt install libjson-c-dev
     - name: install wjelement
-      run: sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
+      run: gh repo clone netmail-open/wjelement && cd wjelement-master && sudo ccmake . && cmake -DLIB_DEST_DIR=/usr/local/lib && make && make install
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
