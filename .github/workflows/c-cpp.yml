@@ -8,9 +8,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: set permissions
-      run: chmod +x compile.sh
+    
     - name: install json library
       run: sudo apt install libjson-c-dev
     - name: esegui
-      run: ./compile.sh
+      run: chmod +x compile.sh && ./compile.sh
