@@ -20,6 +20,6 @@ jobs:
     - name: prova
       run: sudo apt install cmake
     - name: prova1
-      run: sudo cmake . && cmake -DLIB_DEST_DIR=/usr/local/lib64 && make && make install
+      run: sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
     - name: esegui
       run: chmod +x compile.sh && ./compile.sh
