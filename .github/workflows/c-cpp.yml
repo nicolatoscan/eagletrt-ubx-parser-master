@@ -9,11 +9,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     
-    - name: install
+    - name: install libjson
       run: sudo apt install libjson-c-dev cmake
     - name: install wjelement
       run:  git clone https://github.com/netmail-open/wjelement && cd wjelement && sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
-    - name: esegui
-      run: chmod +x compile.sh && ./compile.sh
+    - name: create documentation
+      run: gunzip doxygen-$VERSION.src.tar.gz && tar xf doxygen-$VERSION.src.tar cd doxygen-$VERSION && mkdir build && cd build && cmake -G "Unix Makefiles" ..
       
 
