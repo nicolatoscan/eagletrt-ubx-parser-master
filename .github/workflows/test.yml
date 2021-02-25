@@ -16,3 +16,9 @@ jobs:
     - name: create documentation
       run: git clone https://github.com/doxygen/doxygen.git && cd doxygen && mkdir build && cd build && sudo cmake -G "Unix Makefiles" .. && sudo make && sudo make install && doxygen -g Doxyfile && ls && ( cat Doxyfile ; echo "EXTRACT_ALL=YES"; echo "EXCLUDE=../doxygen"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
 
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: docs # The branch the action should deploy to.
+        folder: html # The folder the action should deploy.
+
