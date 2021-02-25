@@ -10,11 +10,9 @@ jobs:
     - uses: actions/checkout@v2
     
     - name: install libjson
-      run: sudo apt install libjson-c-dev cmake
-    - name: install wjelement
-      run:  git clone https://github.com/netmail-open/wjelement && cd wjelement && sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
+      run: sudo apt install libjson-c-dev cmake doxygen
     - name: create documentation
-      run: git clone https://github.com/doxygen/doxygen.git && cd doxygen && mkdir build && cd build && sudo cmake -G "Unix Makefiles" .. && sudo make && sudo make install && doxygen -g Doxyfile && ls && ( cat Doxyfile ; echo "EXTRACT_ALL=YES"; echo "EXCLUDE=../doxygen"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
+      run: doxygen -g Doxyfile && ls && ( cat Doxyfile ; echo "EXTRACT_ALL=YES"; echo "EXCLUDE=../doxygen"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
 
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.0.0
