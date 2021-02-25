@@ -14,5 +14,5 @@ jobs:
     - name: install wjelement
       run:  git clone https://github.com/netmail-open/wjelement && cd wjelement && sudo cmake -DLIB_DEST_DIR=/usr/local/lib64 && sudo make && sudo make install
     - name: create documentation
-      run: git clone https://github.com/doxygen/doxygen.git && cd doxygen && mkdir build && cd build && sudo cmake -G "Unix Makefiles" .. && sudo make && sudo make install && ( cat Doxyfile ; echo "OUTPUT_DIRECTORY=../eagletrt-ubx-parser-master/docs"; echo "EXTRACT_ALL=YES"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
+      run: git clone https://github.com/doxygen/doxygen.git && cd doxygen && mkdir build && cd build && sudo cmake -G "Unix Makefiles" .. && sudo make && sudo make install && mkdir docs && doxygen -g Doxyfile && ( cat Doxyfile ; echo "OUTPUT_DIRECTORY=../eagletrt-ubx-parser-master/docs"; echo "EXTRACT_ALL=YES"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
 
