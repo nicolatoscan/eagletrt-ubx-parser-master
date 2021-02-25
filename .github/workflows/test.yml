@@ -12,8 +12,7 @@ jobs:
     - name: install libjson
       run: sudo apt install libjson-c-dev cmake doxygen
     - name: create documentation
-      run: doxygen -g Doxyfile && ls && ( cat Doxyfile ; echo "EXTRACT_ALL=YES"; echo "EXCLUDE=../doxygen"; echo "RECURSIVE=YES" ) | doxygen - && cd html && cat index.html
-
+      run: doxygen -g Doxyfile && ls && ( cat Doxyfile ; echo "EXTRACT_ALL=YES"; echo "EXCLUDE=../doxygen"; echo "RECURSIVE=YES", echo "HTML_HEADER=\"scapolettina1/html_header.html\"", echo "HTML_FOOTER=\"scapolettina1/html_footer.html\""  ) | doxygen - && cd html && cat index.html
     - name: Deploy 🚀
       uses: JamesIves/github-pages-deploy-action@4.0.0
       with:
